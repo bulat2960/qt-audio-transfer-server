@@ -4,17 +4,19 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QFile>
+#include <QMap>
 
 class Server : public QTcpServer
 {
 private:
     QTcpSocket* clientSocket;
-    QByteArray audioFile;
+    QMap<QString, QByteArray> audioFiles;
 public:
-    Server(QString filename);
+    Server(QVector<QString> filenames);
     void start(quint16 port);
 public slots:
-    void sendFile();
+    void sendFile(QString data);
+    void readData();
 protected slots:
     void incomingConnection(qintptr socketDescriptor) override;
 };

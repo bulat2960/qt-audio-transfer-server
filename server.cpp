@@ -1,11 +1,15 @@
 ﻿#include "server.h"
 
-Server::Server(QString filename)
-{
-    QFile file(filename);
-    if (file.open(QIODevice::ReadOnly))
+Server::Server(QVector<QString> filenames)
+{    
+    for (int i = 0; i < filenames.size(); i++)
     {
-        audioFile = file.readAll();
+        QString filename = filenames[i];
+        QFile file(filename);
+        if (file.open(QIODevice::ReadOnly))
+        {
+            audioFiles.insert(filename, file.readAll());
+        }
     }
 }
 
@@ -21,11 +25,16 @@ void Server::incomingConnection(qintptr socketDescriptor)
 
     clientSocket = socket;
 
-    connect(clientSocket, &QTcpSocket::readyRead, this, &Server::sendFile);
+    connect(clientSocket, &QTcpSocket::readyRead, this, &Server::readData);
 }
 
-void Server::sendFile()
+void Server::readData()
 {
-    qDebug() << "Read file";
-    clientSocket->write(audioFile);
+    QByteArray data = clientSocket->readAll();
+    sendFile(QString(data));
+}
+
+void Server::sendFile(QString data)
+{
+    clientSocket->write(audioFiles[data]);
 }
