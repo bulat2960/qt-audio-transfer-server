@@ -5,10 +5,11 @@ Server::Server(QVector<QString> filenames)
     for (int i = 0; i < filenames.size(); i++)
     {
         QString filename = filenames[i];
-        QFile file(filename);
+        QFile file("D:/DevQt/LizaAudioTransfer/AudioTransferServer/audio/" + filename);
         if (file.open(QIODevice::ReadOnly))
         {
-            audioFiles.insert(filename, file.readAll());
+            QByteArray data = file.readAll();
+            audioFiles.insert(filename, data);
         }
     }
 }
