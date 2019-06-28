@@ -32,10 +32,16 @@ void Server::incomingConnection(qintptr socketDescriptor)
 void Server::readData()
 {
     QByteArray data = clientSocket->readAll();
+    qDebug() << "Получены запрос" << data << ", передаю управление отправке файла.";
     sendFile(QString(data));
 }
 
 void Server::sendFile(QString data)
 {
-    clientSocket->write(audioFiles[data]);
+    if (audioFiles.contains(data))
+    {
+
+        qDebug() << "Отправляю файл" << data << "размером" <<audioFiles[data].size() << "байт.";
+        clientSocket->write(audioFiles[data]);
+    }
 }
