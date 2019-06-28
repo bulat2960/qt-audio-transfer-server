@@ -32,7 +32,7 @@ void Server::incomingConnection(qintptr socketDescriptor)
 void Server::readData()
 {
     QByteArray data = clientSocket->readAll();
-    qDebug() << "Получен запрос" << data;
+    qDebug() << "Получен запрос на скачивание файла" << data;
     qDebug() << "Передаю управление отправке файла";
     sendFile(QString(data));
 }
@@ -47,6 +47,8 @@ void Server::sendFile(QString data)
     }
     else
     {
+        qDebug() << "Не найден файл с именем" << data;
+        qDebug() << "Отправляю пустой массив данных";
         clientSocket->write(QByteArray());
     }
 }
