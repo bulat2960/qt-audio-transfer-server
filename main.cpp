@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QVector<QString> filenames = {"1.wav", "2.wav", "3.wav"};
+    QVector<QString> filenames = {"1.wav", "2.wav"};
 
     Server* server = new Server(filenames);
     server->start(1234);
