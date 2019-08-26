@@ -21,6 +21,8 @@ void Server::start(quint16 port)
 
 void Server::incomingConnection(qintptr socketDescriptor)
 {
+    qDebug() << "Новое подключение";
+
     QTcpSocket* socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
 
@@ -41,14 +43,15 @@ void Server::sendFile(QString data)
 {
     if (audioFiles.contains(data))
     {
-
         qDebug() << "Отправляю файл" << data << "размером" << audioFiles[data].size() << "байт";
         clientSocket->write(audioFiles[data]);
+        clientSocket->waitForBytesWritten();
     }
     else
     {
         qDebug() << "Не найден файл с именем" << data;
-        qDebug() << "Отправляю пустой массив данных";
-        clientSocket->write(QByteArray());
+        qDebug() << "Отправляю cообщение об отсутствии файла";
+        clientSocket->write(QByteArray("File doesn't exist"));
+        clientSocket->waitForBytesWritten();
     }
 }

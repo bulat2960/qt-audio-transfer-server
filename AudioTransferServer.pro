@@ -32,7 +32,7 @@ HEADERS += \
     server.h
 
 audio_files.path = $$OUT_PWD
-audio_files.files += $$PWD/audio/*
+audio_files.files += $$PWD/audio/
 INSTALLS += audio_files
 
 # Default rules for deployment.
