@@ -31,7 +31,9 @@ SOURCES += \
 HEADERS += \
     server.h
 
-FORMS +=
+audio_files.path = $$OUT_PWD
+audio_files.files += $$PWD/audio/*
+INSTALLS += audio_files
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

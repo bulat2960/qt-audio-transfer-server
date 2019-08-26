@@ -5,7 +5,7 @@ Server::Server(QVector<QString> filenames)
     for (int i = 0; i < filenames.size(); i++)
     {
         QString filename = filenames[i];
-        QFile file("C:/Users/Liza/Documents/qt/serv_client/qt-audio-transfer-server-master/audio/" + filename);
+        QFile file(QDir::currentPath() + "/audio/" + filename);
         if (file.open(QIODevice::ReadOnly))
         {
             QByteArray data = file.readAll();

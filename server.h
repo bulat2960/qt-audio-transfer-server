@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include <QFile>
 #include <QMap>
+#include <QDir>
 
 class Server : public QTcpServer
 {
