@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QVector<QString> filenames = dirContent.toVector();
 
     Server* server = new Server(filenames);
-    server->start(1234);
+    server->start(8000);
 
     return a.exec();
 }

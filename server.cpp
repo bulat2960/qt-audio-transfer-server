@@ -16,7 +16,14 @@ Server::Server(QVector<QString> filenames)
 
 void Server::start(quint16 port)
 {
-    this->listen(QHostAddress::Any, port);
+    if (this->listen(QHostAddress("92.42.26.61"), port))
+    {
+        qDebug() << "Сервер прослушивает соединения по порту" << port;
+    }
+    else
+    {
+        qDebug() << "Ошибка!" << this->errorString();
+    }
 }
 
 void Server::incomingConnection(qintptr socketDescriptor)
