@@ -33,6 +33,8 @@ void Server::incomingConnection(qintptr socketDescriptor)
     QTcpSocket* socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
 
+    qDebug() << "Подключен клиент:" << socket->peerPort() << socket->peerAddress();
+
     clientSocket = socket;
 
     connect(clientSocket, &QTcpSocket::readyRead, this, &Server::readData);
